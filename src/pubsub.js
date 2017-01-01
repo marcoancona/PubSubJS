@@ -91,6 +91,8 @@ https://github.com/mroderick/PubSubJS
 				position = topic.lastIndexOf('.');
 				deliverMessage( message, topic, data, immediateExceptions );
 			}
+			// deliver to wildcard subscriber
+			deliverMessage( message, '', data, immediateExceptions );
 		};
 	}
 
@@ -104,6 +106,7 @@ https://github.com/mroderick/PubSubJS
 			position = topic.lastIndexOf( '.' );
 			found = Boolean(messages.hasOwnProperty( topic ) && hasKeys(messages[topic]));
 		}
+		if (!found) found = Boolean(messages.hasOwnProperty(String('')) && hasKeys(messages[String('')]));
 
 		return found;
 	}
